@@ -1,0 +1,204 @@
+/* Ported verbatim from the hi-fi prototype's sticky-scroll timeline section. */
+
+.section {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(46, 134, 222, 0) 0%, rgba(46, 134, 222, .05) 12%, rgba(46, 134, 222, .08) 100%);
+}
+
+.track {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0 clamp(20px, 5vw, 72px);
+}
+
+.headRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 26px 0 0;
+}
+
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: #1F6FC4;
+}
+
+.heading {
+  font-size: clamp(34px, 3.4vw, 54px);
+  line-height: 1;
+  margin-top: 8px;
+}
+
+.headingRange {
+  color: rgba(0, 0, 0, .78);
+}
+
+.counter {
+  font-size: 15px;
+  letter-spacing: .18em;
+  font-style: normal;
+  color: rgba(0, 0, 0, .78);
+  white-space: nowrap;
+}
+
+.body {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  min-height: 0;
+}
+
+.textStack {
+  position: relative;
+  min-height: 320px;
+}
+
+.textItem {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: opacity .7s cubic-bezier(.2, .7, .2, 1), transform .7s cubic-bezier(.2, .7, .2, 1);
+}
+
+.year {
+  font-size: clamp(56px, 6.4vw, 112px);
+  line-height: .95;
+  letter-spacing: -.03em;
+  color: #000000;
+  font-weight: 400;
+}
+
+.yearSuffix {
+  font-size: .35em;
+  color: #1F6FC4;
+  font-style: normal;
+  margin-left: .25em;
+}
+
+.divider {
+  width: 72px;
+  height: 2px;
+  background: #A9C9EC;
+  margin: 26px 0;
+}
+
+.text {
+  margin: 0;
+  max-width: 520px;
+  font-size: clamp(17px, 1.3vw, 22px);
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(0, 0, 0, .78);
+}
+
+.imageStack {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-height: 62vh;
+  width: 100%;
+  justify-self: end;
+  border-radius: 26px;
+  overflow: hidden;
+  background: rgba(46, 134, 222, .04);
+  border: 1px solid rgba(46, 134, 222, .18);
+  box-shadow: 0 50px 120px -50px rgba(15, 76, 129, .35);
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform 1.4s cubic-bezier(.2, .7, .2, 1);
+}
+
+.imageFade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 76, 129, 0) 55%, rgba(15, 76, 129, .7) 100%);
+  pointer-events: none;
+}
+
+.imageBadge {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, .16);
+  font-style: normal;
+  font-size: 14px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.imageBadgeYear {
+  color: rgba(255, 255, 255, .85);
+}
+
+.imageBadgeHint {
+  color: #A9C9EC;
+}
+
+.footRow {
+  padding: 0 0 22px;
+}
+
+.progressTrack {
+  position: relative;
+  height: 2px;
+  background: rgba(15, 76, 129, .12);
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+.progressFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #2E86DE, #A9C9EC);
+  border-radius: 2px;
+  transition: width .3s;
+}
+
+.ticks {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  font-style: normal;
+  font-size: 13px;
+  letter-spacing: .08em;
+}
+
+.tick {
+  transition: color .4s;
+  white-space: nowrap;
+}

@@ -1,0 +1,97 @@
+/* Local redefinition of the global marquee keyframes — see Hero.module.css for why. */
+@keyframes marqueeL {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marqueeR {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.wrap {
+  padding: 6vh 0 4vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+.headingRow {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 0 clamp(20px, 5vw, 72px);
+}
+
+.heading {
+  font-size: clamp(28px, 2.6vw, 42px);
+}
+
+.subheading {
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.78);
+}
+
+.maskRow {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* animation-duration is supplied per instance via the inline style prop */
+.track1,
+.track2 {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  padding-right: 14px;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.track1 {
+  animation-name: marqueeL;
+}
+
+.track2 {
+  animation-name: marqueeR;
+}
+
+.card1,
+.card2 {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(46, 134, 222, 0.18);
+  flex-shrink: 0;
+  transition: transform 0.5s;
+}
+
+.card1 {
+  width: clamp(160px, 17vw, 240px);
+  aspect-ratio: 3 / 4;
+}
+
+.card2 {
+  width: clamp(200px, 22vw, 320px);
+  aspect-ratio: 16 / 10;
+}
+
+.card1:hover {
+  transform: translateY(-8px) rotate(-1deg);
+}
+
+.card2:hover {
+  transform: translateY(-8px) rotate(1deg);
+}
+
+.card1 img,
+.card2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

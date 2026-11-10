@@ -1,0 +1,97 @@
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 10vh clamp(20px, 5vw, 72px) 4vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 34px;
+  background: linear-gradient(180deg, rgba(46, 134, 222, 0), rgba(46, 134, 222, .035));
+}
+
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #1F6FC4;
+}
+
+.heading {
+  margin-top: 10px;
+  font-size: clamp(34px, 3.6vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+}
+
+.underline {
+  margin-top: 16px;
+  width: 96px;
+  height: 3px;
+  background: #2E86DE;
+}
+
+.lead {
+  max-width: 420px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, .78);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px 20px 20px;
+  border-radius: 20px;
+  background: rgba(46, 134, 222, .06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(46, 134, 222, .18);
+  transition: transform .45s, background .45s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  background: rgba(46, 134, 222, .12);
+}
+
+.iconTile {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: #2E86DE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.cardBody {
+  min-width: 0;
+}
+
+.cardTitle {
+  font-size: 21px;
+  line-height: 1.25;
+  color: #000000;
+}
+
+.cardSub {
+  margin-top: 6px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, .78);
+}

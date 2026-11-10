@@ -1,0 +1,131 @@
+/* Local redefinition of the global `rise` keyframe — see Hero.module.css for why. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15,76,129,.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: rise .35s ease both;
+}
+
+.form {
+  width: min(560px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  display: grid;
+  gap: 16px;
+  padding: clamp(26px, 4vw, 44px);
+  border-radius: 28px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(46,134,222,.18);
+  box-shadow: 0 60px 140px -60px rgba(15,76,129,.35);
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #1F6FC4;
+}
+
+.title {
+  font-size: clamp(26px, 3vw, 38px);
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-top: 6px;
+}
+
+.closeBtn {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 20px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: #000000;
+  background: rgba(46,134,222,.08);
+  border: 1px solid rgba(46,134,222,.18);
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, .78);
+}
+
+.input,
+.textarea {
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 400;
+  color: #000000;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(46,134,222,.05);
+  border: 1px solid rgba(46,134,222,.18);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.sentMessage {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1F6FC4;
+}
+
+.errorMessage {
+  font-size: 16px;
+  font-weight: 400;
+  color: #C01420;
+}
+
+.submitBtn {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  padding: 16px;
+  border-radius: 999px;
+  color: #fff;
+  background: #E51C24;
+  border: none;
+  transition: background .3s;
+}
+
+.submitBtn:hover {
+  background: #C01420;
+}
+
+.submitBtn:disabled {
+  opacity: .7;
+  cursor: default;
+}
