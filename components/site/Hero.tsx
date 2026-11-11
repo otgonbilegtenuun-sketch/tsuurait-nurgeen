@@ -1,9 +1,12 @@
 'use client';
 
-import type { PointerEvent as ReactPointerEvent, RefObject } from 'react';
+import type { RefObject } from 'react';
+import dynamic from 'next/dynamic';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 import styles from './Hero.module.css';
+
+const TankShowcase = dynamic(() => import('@/components/three/TankShowcase'), { ssr: false });
 
 type TeamStat = { n: number; label: string };
 
@@ -24,17 +27,6 @@ export default function Hero({
   onContactClick: () => void;
 }) {
   const { t, lang } = useLanguage();
-
-  // Forwards drag activity to the Hero 3D scene (lib/three/hero3d.ts) via
-  // window CustomEvents — see the note in hero3d.ts for why this indirection
-  // exists instead of the canvas listening for its own pointer events.
-  const dispatchDrag = (type: 'start' | 'move' | 'end', e?: ReactPointerEvent) => {
-    window.dispatchEvent(
-      new CustomEvent(`tn-hero-drag-${type}`, {
-        detail: e ? { clientX: e.clientX, clientY: e.clientY } : undefined,
-      })
-    );
-  };
 
   return (
     <section ref={innerRef} data-screen-label="Hero" className={styles.section}>
@@ -85,23 +77,9 @@ export default function Hero({
           <p className={styles.intro}>{t('heroIntro')}</p>
         </div>
 
-        <div className={styles.aboutCol}>
-          <div className={styles.aboutCard}>
-            <div className={styles.aboutLabel}>{t('aboutLabel')}</div>
-            <div className={styles.aboutList}>
-              <div className={styles.aboutRow}>
-                <span>{t('aboutFounded')}</span>
-                <span className={styles.aboutValue}>2010{lang === 'mn' ? ' он' : ''}</span>
-              </div>
-              <div className={styles.aboutRow}>
-                <span>{t('aboutRegistered')}</span>
-                <span className={styles.aboutValue}>2018{lang === 'mn' ? ' он' : ''}</span>
-              </div>
-              <div className={styles.aboutRowLast}>
-                <span>{t('aboutTeam')}</span>
-                <span className={styles.aboutValue}>27</span>
-              </div>
-            </div>
+        <div className={styles.tankCol}>
+          <div className={styles.tankBox}>
+            <TankShowcase />
           </div>
         </div>
       </div>
@@ -122,21 +100,6 @@ export default function Hero({
           ))}
         </div>
       </div>
-
-      {/* Invisible hit-zone over the 3D tank model — see dispatchDrag above. */}
-      <div
-        className={styles.dragZone}
-        onPointerDown={(e) => {
-          e.currentTarget.setPointerCapture(e.pointerId);
-          dispatchDrag('start', e);
-        }}
-        onPointerMove={(e) => {
-          if (e.buttons === 1) dispatchDrag('move', e);
-        }}
-        onPointerUp={() => dispatchDrag('end')}
-        onPointerCancel={() => dispatchDrag('end')}
-        aria-hidden="true"
-      />
     </section>
   );
 }

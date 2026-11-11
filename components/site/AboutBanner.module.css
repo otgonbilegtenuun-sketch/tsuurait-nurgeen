@@ -42,3 +42,63 @@
     aspect-ratio: 4 / 3;
   }
 }
+
+/* ---------- About card (moved here from Hero, which now shows the 3D
+   tank in that slot) ---------- */
+
+.aboutCard {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 1;
+  width: min(300px, 42%);
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: rgba(15, 76, 129, .38);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, .22);
+  box-shadow: 0 20px 50px -28px rgba(0, 0, 0, .4);
+}
+
+.aboutLabel {
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .35);
+}
+
+.aboutList {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, .85);
+}
+
+.aboutRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, .22);
+  padding-bottom: 8px;
+}
+
+.aboutRowLast {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.aboutValue {
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .aboutCard {
+    width: min(220px, 60%);
+    padding: 14px 16px;
+  }
+}
