@@ -60,17 +60,6 @@ export default function Hero({
             <div className={styles.tankLabel}>{t('tankLabel')}</div>
           </div>
 
-          {/* Technical drawing sits directly under the 3D tank. Replace
-              public/img/blueprint-diagram.jpg to change it. */}
-          <figure className={styles.blueprint}>
-            <div className={styles.blueprintImage}>
-              <img src="/img/blueprint-diagram.jpg" alt={t('engineeringHeading')} />
-            </div>
-            <figcaption className={styles.blueprintCaption}>
-              <span className={styles.blueprintEyebrow}>{t('engineeringEyebrow')}</span>
-              <span>{t('engineeringHeading')}</span>
-            </figcaption>
-          </figure>
         </div>
       </div>
 

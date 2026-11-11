@@ -8,6 +8,7 @@ import { news } from '@/lib/data/news';
 import Hero from '@/components/site/Hero';
 import NewsSection from '@/components/site/NewsSection';
 import AboutBanner from '@/components/site/AboutBanner';
+import EngineeringSection from '@/components/site/EngineeringSection';
 import PartnersSection from '@/components/site/PartnersSection';
 import CertificatesSection from '@/components/site/CertificatesSection';
 import ProjectsTimeline from '@/components/site/ProjectsTimeline';
@@ -32,6 +33,7 @@ export default function SiteExperience() {
       <Hero team={team} onContactClick={openForm} />
       <NewsSection news={news} />
       <AboutBanner />
+      <EngineeringSection />
       <PartnersSection />
       <CertificatesSection certificates={certificates} />
       <ProjectsTimeline projects={projects} />

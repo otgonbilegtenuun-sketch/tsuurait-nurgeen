@@ -2,8 +2,8 @@
 // a normal in-flow "card" element, so it receives pointer events directly
 // for drag-to-rotate.
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { buildTank } from './tank/buildTank';
 
 export type TankShowcaseHandle = {
   dispose: () => void;
@@ -12,10 +12,17 @@ export type TankShowcaseHandle = {
 export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankShowcaseHandle {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
+  // Image-based light so the glossy gelcoat and galvanized steel have something to reflect.
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environment = envTex;
+  scene.environmentIntensity = 0.5;
+  pmrem.dispose();
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-  // Placeholder framing until the model loads; frameModel() replaces it.
   camera.position.set(0, 1.4, 9);
   camera.lookAt(0, 0, 0);
 
@@ -32,7 +39,7 @@ export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankSh
     const distH = fit.radiusXZ / Math.tan(hHalf);
     // + part of the radius: the near corners sit closer to the camera and
     // appear larger under perspective as the tank turns.
-    const dist = Math.max(distV, distH) + fit.radiusXZ * 0.6;
+    const dist = Math.max(distV, distH) + fit.radiusXZ * 0.45;
     camera.position.set(0, dist * 0.155, dist);
     camera.lookAt(0, 0, 0);
   };
@@ -41,47 +48,45 @@ export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankSh
   scene.add(group);
 
   const tankGroup = new THREE.Group();
-  tankGroup.visible = false; // shown once loaded + measured, to avoid a flash at the wrong scale
   group.add(tankGroup);
 
-  const dracoLoader = new DRACOLoader();
-  dracoLoader.setDecoderPath('/draco/');
-  const gltfLoader = new GLTFLoader();
-  gltfLoader.setDRACOLoader(dracoLoader);
-  gltfLoader.load(
-    '/models/tank.glb',
-    (gltf) => {
-      const model = gltf.scene;
-      const box = new THREE.Box3().setFromObject(model);
-      const size = new THREE.Vector3();
-      box.getSize(size);
-      const center = new THREE.Vector3();
-      box.getCenter(center);
-      const targetHeight = 3.4;
-      const scale = targetHeight / (size.y || 1);
-      model.position.sub(center).multiplyScalar(scale);
-      model.scale.setScalar(scale);
-      tankGroup.add(model);
-      fit = {
-        halfH: targetHeight / 2,
-        radiusXZ: (Math.hypot(size.x, size.z) / 2) * scale,
-      };
-      frameModel();
-      tankGroup.visible = true;
-    },
-    undefined,
-    (err) => console.warn('[tankShowcase] tank model failed to load', err)
-  );
+  const tank = buildTank();
+  {
+    const model = tank.group;
+    const box = new THREE.Box3().setFromObject(model);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    const targetHeight = 3.6;
+    const scale = targetHeight / (size.y || 1);
+    model.position.sub(center).multiplyScalar(scale);
+    model.scale.setScalar(scale);
+    tankGroup.add(model);
+    fit = {
+      halfH: targetHeight / 2,
+      radiusXZ: (Math.hypot(size.x, size.z) / 2) * scale * 0.88,
+    };
+  }
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.25));
   const l1 = new THREE.PointLight(0xa9c9ec, 50, 30);
   l1.position.set(-5, 5, 5);
   scene.add(l1);
   const l2 = new THREE.PointLight(0xc3d8ee, 35, 30);
   l2.position.set(5, -2, 4);
   scene.add(l2);
-  const l3 = new THREE.DirectionalLight(0xffffff, 1.1);
+  const l3 = new THREE.DirectionalLight(0xffffff, 1.0);
   l3.position.set(2, 6, 3);
+  l3.castShadow = true;
+  l3.shadow.mapSize.set(1024, 1024);
+  l3.shadow.camera.left = -6;
+  l3.shadow.camera.right = 6;
+  l3.shadow.camera.top = 6;
+  l3.shadow.camera.bottom = -6;
+  l3.shadow.camera.near = 0.5;
+  l3.shadow.camera.far = 20;
+  l3.shadow.bias = -0.0005;
   scene.add(l3);
 
   const resize = () => {
@@ -154,7 +159,8 @@ export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankSh
       canvas.removeEventListener('pointermove', onPointerMove);
       canvas.removeEventListener('pointerup', onPointerUp);
       canvas.removeEventListener('pointercancel', onPointerUp);
-      dracoLoader.dispose();
+      tank.dispose();
+      envTex.dispose();
       renderer.dispose();
     },
   };
