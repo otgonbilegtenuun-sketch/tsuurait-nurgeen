@@ -19,6 +19,12 @@ export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankSh
   scene.fog = new THREE.Fog(0xffffff, 10, 22);
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
   camera.position.set(0, 1.4, 9);
+  // Without an explicit lookAt, the camera looks straight down -Z — since
+  // it sits 1.4 units above the model's (0,0,0) center, that pushes the
+  // model (including its base/legs) down and out of frame. Aim at the
+  // model's center explicitly so the whole thing — base to top — stays
+  // inside the box regardless of camera height.
+  camera.lookAt(0, 0, 0);
 
   const group = new THREE.Group();
   scene.add(group);

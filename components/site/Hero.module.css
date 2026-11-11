@@ -205,7 +205,7 @@
 }
 
 .tankBox {
-  height: 340px;
+  height: 480px;
   border-radius: 20px;
   background: rgba(46, 134, 222, .06);
   backdrop-filter: blur(20px);
@@ -217,7 +217,7 @@
 
 @media (max-width: 900px) {
   .tankBox {
-    height: 260px;
+    height: 360px;
   }
 }
 
