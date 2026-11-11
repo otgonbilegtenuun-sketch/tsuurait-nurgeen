@@ -96,11 +96,14 @@ export function mount(
       box.getSize(size);
       const center = new THREE.Vector3();
       box.getCenter(center);
-      const targetHeight = 4.2;
+      const targetHeight = 2.9;
       const scale = targetHeight / (size.y || 1);
       model.position.sub(center);
       model.scale.setScalar(scale);
       tankGroup.add(model);
+      // Nudge it up within the hero's empty band — right of the logo, below
+      // the header, clear of the "about" card lower on the right.
+      tankGroup.position.y = 1.7;
       tankGroup.visible = true;
     },
     undefined,
