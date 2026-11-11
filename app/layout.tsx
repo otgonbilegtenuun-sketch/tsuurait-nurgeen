@@ -40,7 +40,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="mn">
-      <body>
+      {/* Browser extensions inject attributes on <body> before React hydrates; this only silences that one element. */}
+      <body suppressHydrationWarning>
         <div
           aria-hidden="true"
           style={{
