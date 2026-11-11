@@ -2,10 +2,13 @@
 
 import { useMemo, useState } from 'react';
 import { projects, works, team } from '@/lib/data/projects';
+import { services } from '@/lib/data/services';
 import { certificates } from '@/lib/data/certificates';
 import { news } from '@/lib/data/news';
 
+import SiteHeader from '@/components/site/SiteHeader';
 import Hero from '@/components/site/Hero';
+import Services from '@/components/site/Services';
 import NewsSection from '@/components/site/NewsSection';
 import AboutBanner from '@/components/site/AboutBanner';
 import EngineeringSection from '@/components/site/EngineeringSection';
@@ -30,7 +33,10 @@ export default function SiteExperience() {
 
   return (
     <>
-      <Hero team={team} onContactClick={openForm} />
+      <div id="top" />
+      <SiteHeader onContactClick={openForm} />
+      <Hero team={team} />
+      <Services services={services} projects={projects} certificates={certificates} onContactClick={openForm} />
       <NewsSection news={news} />
       <AboutBanner />
       <EngineeringSection />

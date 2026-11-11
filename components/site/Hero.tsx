@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
-import SiteHeader from './SiteHeader';
 import styles from './Hero.module.css';
 
 const TankShowcase = dynamic(() => import('@/components/three/TankShowcase'), { ssr: false });
@@ -16,19 +15,11 @@ const TEAM_LABEL_EN: Record<string, string> = {
   'Туслах ажилтан': 'Support staff',
 };
 
-export default function Hero({
-  team,
-  onContactClick,
-}: {
-  team: TeamStat[];
-  onContactClick: () => void;
-}) {
+export default function Hero({ team }: { team: TeamStat[] }) {
   const { t, lang } = useLanguage();
 
   return (
     <section data-screen-label="Hero" className={styles.section}>
-      <SiteHeader onContactClick={onContactClick} />
-
       <div className={styles.content}>
         <div className={styles.textCol}>
           <div className={styles.eyebrow}>

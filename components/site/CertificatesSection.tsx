@@ -11,7 +11,7 @@ export default function CertificatesSection({ certificates }: { certificates: Ce
   const { ref, canPrev, canNext, step } = useHScroll();
 
   return (
-    <section className={styles.section} data-screen-label="Certificates">
+    <section id="certificates" className={styles.section} data-screen-label="Certificates">
       <div className={styles.headRow}>
         <div>
           <div className={styles.eyebrow}>{t('certsEyebrow')}</div>

@@ -10,7 +10,7 @@ export default function NewsSection({ news }: { news: NewsItem[] }) {
   if (news.length === 0) return null; // Per design spec: the entire section must not render when news is empty.
 
   return (
-    <div className={styles.wrap} data-screen-label="News">
+    <div id="news" className={styles.wrap} data-screen-label="News">
       <div className={styles.headingRow}>
         <div className={styles.heading}>{t('newsHeading')}</div>
         <div className={styles.subheading}>{t('newsSubheading')}</div>

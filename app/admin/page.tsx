@@ -4,11 +4,13 @@ import { useState, type FormEvent } from 'react';
 import { projects } from '@/lib/data/projects';
 import { news } from '@/lib/data/news';
 import { certificates } from '@/lib/data/certificates';
+import { services } from '@/lib/data/services';
 import styles from './page.module.css';
 
-type Tab = 'projects' | 'news' | 'certificates' | 'messages';
+type Tab = 'services' | 'projects' | 'news' | 'certificates' | 'messages';
 
 const TABS: { key: Tab; label: string }[] = [
+  { key: 'services', label: 'Үйл ажиллагаа' },
   { key: 'projects', label: 'Бүтээн байгуулалт' },
   { key: 'news', label: 'Мэдээ' },
   { key: 'certificates', label: 'Гэрчилгээ' },
@@ -28,7 +30,7 @@ export default function AdminPage() {
   const [locked, setLocked] = useState(true);
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
-  const [tab, setTab] = useState<Tab>('projects');
+  const [tab, setTab] = useState<Tab>('services');
 
   function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -97,6 +99,42 @@ export default function AdminPage() {
       </nav>
 
       <section className={styles.panel}>
+        {tab === 'services' && (
+          <>
+            <div className={styles.panelHeader}>
+              <span className={styles.panelTitle}>Үйл ажиллагааны чиглэл ({services.length})</span>
+            </div>
+            <ul className={styles.list}>
+              {services.map((sv) => (
+                <li key={sv.slug} className={styles.row}>
+                  <div className={styles.rowMain}>
+                    <span className={styles.year}>{sv.sub}</span>
+                    <span className={styles.rowText}>{sv.title}</span>
+                  </div>
+                  <div className={styles.actions}>
+                    <button
+                      type="button"
+                      className={styles.actionButton}
+                      disabled
+                      title={COMING_SOON_TITLE}
+                    >
+                      Мэдээлэл нэмэх
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.actionButton}
+                      disabled
+                      title={COMING_SOON_TITLE}
+                    >
+                      Засах
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
         {tab === 'projects' && (
           <>
             <div className={styles.panelHeader}>

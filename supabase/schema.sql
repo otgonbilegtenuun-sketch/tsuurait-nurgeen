@@ -51,3 +51,27 @@ alter table public.messages enable row level security;
 --   "order" int,
 --   created_at timestamptz default now()
 -- );
+
+-- The 7 service directions (accordion on the home page). Each can carry its own
+-- extra information blocks (text + optional photo) that the admin panel's
+-- "Мэдээлэл нэмэх" button will insert once Supabase is connected.
+-- create table if not exists public.services (
+--   id uuid primary key default gen_random_uuid(),
+--   slug text unique not null,
+--   title text not null,
+--   subtitle text,
+--   body_mn text,
+--   body_en text,
+--   "order" int,
+--   created_at timestamptz default now()
+-- );
+--
+-- create table if not exists public.service_items (
+--   id uuid primary key default gen_random_uuid(),
+--   service_id uuid not null references public.services(id) on delete cascade,
+--   title text not null,
+--   body text,
+--   image_url text,
+--   "order" int,
+--   created_at timestamptz default now()
+-- );

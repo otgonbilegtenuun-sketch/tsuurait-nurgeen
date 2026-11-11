@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  // The services page became a section of the one-page site.
+  async redirects() {
+    return [{ source: "/services", destination: "/#services", permanent: false }];
+  },
   turbopack: {
     rules: {
       // Scoped to the single file that needs Tailwind's `@import "tailwindcss"`

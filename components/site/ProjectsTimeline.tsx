@@ -15,7 +15,7 @@ export default function ProjectsTimeline({ projects }: { projects: Project[] }) 
   const current = Math.min(index, projects.length - 1);
 
   return (
-    <section data-screen-label="Projects" className={styles.section}>
+    <section id="projects" data-screen-label="Projects" className={styles.section}>
       <div className={styles.headRow}>
         <div>
           <div className={styles.eyebrow}>{t('timelineEyebrow')}</div>

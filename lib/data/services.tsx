@@ -19,14 +19,25 @@ function Icon({ children }: { children: ReactNode }) {
 }
 
 export type Service = {
+  slug: string;
   title: string;
   sub: string;
+  // One-line description, restating what the project history already says.
+  body: { mn: string; en: string };
+  // Projects whose text contains any of these words are listed as related work.
+  keywords: string[];
   icon: ReactNode;
 };
 
 export const services: Service[] = [
   {
+    slug: 'clean-water-tank',
     title: 'Цэвэр усны нөөцийн сав',
+    body: {
+      mn: 'Цэвэр усны нөөцийн сав нийлүүлэх, байранд нь угсрах. Солонгосын DOORI компанитай хамтран ажилладаг бөгөөд GRP савыг хавтангаар тээвэрлэж, байранд нь угсарна.',
+      en: 'Supply and on-site assembly of clean water storage tanks. We work with South Korea’s DOORI; the GRP tank is shipped as panels and assembled in the building.',
+    },
+    keywords: ['нөөцийн сав'],
     sub: 'Гэрээт борлуулагч',
     icon: (
       Icon({ children: <>
@@ -35,7 +46,13 @@ export const services: Service[] = [
     ),
   },
   {
+    slug: 'plumbing',
     title: 'Сантехникийн угсралт',
+    body: {
+      mn: 'Барилгын дотор, гадна сантехникийн шугам сүлжээний угсралт.',
+      en: 'Installation of interior and exterior plumbing lines and networks for buildings.',
+    },
+    keywords: ['сантехник'],
     sub: 'Дотор, гадна шугам сүлжээ',
     icon: (
       Icon({ children: <>
@@ -46,7 +63,13 @@ export const services: Service[] = [
     ),
   },
   {
+    slug: 'steel-structures',
     title: 'Төмөр хийц',
+    body: {
+      mn: 'Төмөр хийцийн үйлдвэрлэл, угсралт: шатны бариул, аваарын шат, тагт, террас зэрэг.',
+      en: 'Steel structure fabrication and installation: stair railings, emergency stairs, balconies, terraces and more.',
+    },
+    keywords: ['төмөр хийц'],
     sub: 'Үйлдвэрлэл, угсралт',
     icon: (
       Icon({ children: <>
@@ -55,7 +78,13 @@ export const services: Service[] = [
     ),
   },
   {
-    title: 'Нөөцийн сав, үзель угсралт',
+    slug: 'tanks-and-nodes',
+    title: 'Нөөцийн сав, узель угсралт',
+    body: {
+      mn: 'Нөөцийн сав болон узелийн угсралт.',
+      en: 'Installation of storage tanks and pipe junction (utility node) assemblies.',
+    },
+    keywords: ['нөөцийн сав', 'узель'],
     sub: 'Мэргэжлийн шийдэл',
     icon: (
       Icon({ children: <>
@@ -65,7 +94,13 @@ export const services: Service[] = [
     ),
   },
   {
+    slug: 'cooling',
     title: 'Хөргөлтийн систем',
+    body: {
+      mn: 'Хөргөлтийн системийн угсралт, тохируулга.',
+      en: 'Installation and commissioning of cooling systems.',
+    },
+    keywords: ['хөргөлт'],
     sub: 'Угсралт, тохируулга',
     icon: (
       Icon({ children: <>
@@ -75,7 +110,13 @@ export const services: Service[] = [
     ),
   },
   {
+    slug: 'ventilation',
     title: 'Салхивч, агаар сэлгэлт',
+    body: {
+      mn: 'Халаалт, салхивч, агаар сэлгэлтийн системийн инженерийн угсралт.',
+      en: 'Engineering installation of heating, ventilation and air exchange systems.',
+    },
+    keywords: ['салхивч', 'халаалт'],
     sub: 'Инженерийн угсралт',
     icon: (
       Icon({ children: <>
@@ -87,7 +128,13 @@ export const services: Service[] = [
     ),
   },
   {
+    slug: 'equipment',
     title: 'Тоног төхөөрөмж угсралт',
+    body: {
+      mn: 'Үүрэн холбооны антен, алсыг харагч зэрэг тоног төхөөрөмжийн угсралт.',
+      en: 'Installation of equipment such as cellular antennas and surveillance masts.',
+    },
+    keywords: ['антен', 'харагч'],
     sub: 'Найдвартай гүйцэтгэл',
     icon: (
       Icon({ children: <>
