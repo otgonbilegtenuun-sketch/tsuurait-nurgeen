@@ -1,6 +1,6 @@
 'use client';
 
-import type { RefObject } from 'react';
+import type { PointerEvent as ReactPointerEvent, RefObject } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 import styles from './Hero.module.css';
@@ -24,6 +24,17 @@ export default function Hero({
   onContactClick: () => void;
 }) {
   const { t, lang } = useLanguage();
+
+  // Forwards drag activity to the Hero 3D scene (lib/three/hero3d.ts) via
+  // window CustomEvents — see the note in hero3d.ts for why this indirection
+  // exists instead of the canvas listening for its own pointer events.
+  const dispatchDrag = (type: 'start' | 'move' | 'end', e?: ReactPointerEvent) => {
+    window.dispatchEvent(
+      new CustomEvent(`tn-hero-drag-${type}`, {
+        detail: e ? { clientX: e.clientX, clientY: e.clientY } : undefined,
+      })
+    );
+  };
 
   return (
     <section ref={innerRef} data-screen-label="Hero" className={styles.section}>
@@ -111,6 +122,21 @@ export default function Hero({
           ))}
         </div>
       </div>
+
+      {/* Invisible hit-zone over the 3D tank model — see dispatchDrag above. */}
+      <div
+        className={styles.dragZone}
+        onPointerDown={(e) => {
+          e.currentTarget.setPointerCapture(e.pointerId);
+          dispatchDrag('start', e);
+        }}
+        onPointerMove={(e) => {
+          if (e.buttons === 1) dispatchDrag('move', e);
+        }}
+        onPointerUp={() => dispatchDrag('end')}
+        onPointerCancel={() => dispatchDrag('end')}
+        aria-hidden="true"
+      />
     </section>
   );
 }

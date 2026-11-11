@@ -307,3 +307,29 @@
   color: rgba(0, 0, 0, .78);
   white-space: nowrap;
 }
+
+/* Invisible hit-zone over the 3D tank model (approximate — the model is
+   positioned in Three.js camera-space, not CSS, so this is a best-effort
+   overlay). Sits above the text content (z-index) only in this one region,
+   so dragging the tank doesn't fight text selection; everywhere else on the
+   page the canvas stays fully pointer-events:none. */
+.dragZone {
+  position: absolute;
+  z-index: 2;
+  top: 90px;
+  right: 0;
+  bottom: 90px;
+  width: 50%;
+  cursor: grab;
+  touch-action: none;
+}
+
+.dragZone:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 900px) {
+  .dragZone {
+    display: none;
+  }
+}
