@@ -138,3 +138,39 @@
 .adminLink:hover {
   color: #1F6FC4;
 }
+
+@media (max-width: 760px) {
+  .footer {
+    padding: 6vh 16px 4vh;
+  }
+
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding: 30px 22px;
+    border-radius: 26px;
+  }
+
+  .heading {
+    margin-top: 24px;
+    font-size: 42px;
+  }
+
+  .contactLink {
+    font-size: 19px;
+    overflow-wrap: anywhere;
+  }
+
+  .ctaBtn {
+    justify-self: stretch;
+    font-size: 14px;
+    padding: 15px 20px;
+  }
+
+  .bottomRow {
+    flex-direction: column;
+    gap: 10px;
+    padding: 22px 4px 0;
+    font-size: 12px;
+  }
+}

@@ -3,10 +3,7 @@
 .section {
   position: relative;
   z-index: 1;
-  background-image:
-    linear-gradient(180deg, rgba(46, 134, 222, 0) 0%, rgba(46, 134, 222, .05) 12%, rgba(46, 134, 222, .08) 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Crect x='17' y='17' width='10' height='10' fill='%232E86DE' fill-opacity='0.05' transform='rotate(45 22 22)'/%3E%3C/svg%3E");
-  background-repeat: no-repeat, repeat;
+  background: linear-gradient(180deg, rgba(46, 134, 222, 0) 0%, rgba(46, 134, 222, .05) 12%, rgba(46, 134, 222, .08) 100%);
 }
 
 .track {
@@ -204,4 +201,85 @@
 .tick {
   transition: color .4s;
   white-space: nowrap;
+}
+
+/* Phones: stack text above the image. Every year is pinned to the top of the
+   stack (not vertically centered) so the outgoing/incoming items line up
+   during the crossfade instead of ghosting at different heights. svh keeps
+   the sticky panel inside the visible area when the mobile browser bar shows. */
+@media (max-width: 760px) {
+  .sticky {
+    height: 100svh;
+  }
+
+  .headRow {
+    padding-top: 18px;
+    align-items: flex-start;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+  }
+
+  .heading {
+    font-size: 28px;
+    line-height: 1.1;
+  }
+
+  .counter {
+    font-size: 13px;
+    padding-top: 2px;
+  }
+
+  .body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-content: center;
+    gap: 18px;
+  }
+
+  .textStack {
+    min-height: 220px;
+  }
+
+  .textItem {
+    justify-content: flex-start;
+    transition-duration: .4s;
+  }
+
+  .year {
+    font-size: 48px;
+  }
+
+  .divider {
+    margin: 14px 0;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  .imageStack {
+    aspect-ratio: 16 / 10;
+    max-height: 30svh;
+    justify-self: stretch;
+    border-radius: 20px;
+  }
+
+  .imageBadge {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 8px 14px;
+    font-size: 11px;
+    letter-spacing: .12em;
+  }
+
+  .footRow {
+    padding-bottom: 16px;
+  }
+
+  .ticks {
+    display: none;
+  }
 }

@@ -1,8 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useMemo, useRef, useState } from 'react';
-import type { Hero3DHandle } from '@/lib/three/hero3d';
 import { useProjectsTimeline } from '@/lib/hooks/useProjectsTimeline';
 import { projects, works, team } from '@/lib/data/projects';
 import { services } from '@/lib/data/services';
@@ -23,16 +21,13 @@ import NewsSection from '@/components/site/NewsSection';
 import SiteFooter from '@/components/site/SiteFooter';
 import ContactModal from '@/components/site/ContactModal';
 
-const HeroCanvas = dynamic(() => import('@/components/three/HeroCanvas'), { ssr: false });
-
 const STEP_HEIGHT_VH = 70;
 
 export default function SiteExperience() {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
-  const heroHandleRef = useRef<Hero3DHandle | null>(null);
 
-  const { active, progress } = useProjectsTimeline(trackRef, heroRef, heroHandleRef, projects.length);
+  const { active, progress } = useProjectsTimeline(trackRef, projects.length);
   const [formOpen, setFormOpen] = useState(false);
 
   const openForm = () => setFormOpen(true);
@@ -89,14 +84,6 @@ export default function SiteExperience() {
 
   return (
     <LanguageProvider>
-      <HeroCanvas
-        onReady={(handle) => {
-          heroHandleRef.current = handle;
-        }}
-        onDispose={() => {
-          heroHandleRef.current = null;
-        }}
-      />
       <div
         style={{
           position: 'fixed',

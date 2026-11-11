@@ -95,3 +95,15 @@
   object-fit: cover;
   display: block;
 }
+
+@media (max-width: 760px) {
+  .headingRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .subheading {
+    font-size: 12px;
+    letter-spacing: .14em;
+  }
+}

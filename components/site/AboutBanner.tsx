@@ -8,11 +8,14 @@ export default function AboutBanner() {
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.frame}>
-        <img src="/img/about-team.jpg" alt="" />
-        <div className={styles.fade} />
-        <div className={styles.caption}>{t('aboutBannerCaption')}</div>
+      <div className={styles.inner}>
+        <div className={styles.frame}>
+          <img src="/img/about-team.jpg" alt="" />
+          <div className={styles.fade} />
+          <div className={styles.caption}>{t('aboutBannerCaption')}</div>
+        </div>
 
+        {/* Overlays the photo on desktop; sits below it on phones (see CSS). */}
         <div className={styles.aboutCard}>
           <div className={styles.aboutLabel}>{t('aboutLabel')}</div>
           <div className={styles.aboutList}>

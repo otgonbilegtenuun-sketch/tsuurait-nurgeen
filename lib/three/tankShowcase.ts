@@ -1,8 +1,6 @@
 // Self-contained 3D scene for the GRP tank model, sized to and living inside
-// a normal in-flow "card" element (unlike hero3d.ts, which is a position:fixed
-// full-page background canvas). Because this canvas is a regular DOM node in
-// the content layer, it can receive pointer events directly — no z-index
-// workaround needed for drag-to-rotate.
+// a normal in-flow "card" element, so it receives pointer events directly
+// for drag-to-rotate.
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
@@ -16,15 +14,28 @@ export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankSh
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0xffffff, 10, 22);
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  // Placeholder framing until the model loads; frameModel() replaces it.
   camera.position.set(0, 1.4, 9);
-  // Without an explicit lookAt, the camera looks straight down -Z — since
-  // it sits 1.4 units above the model's (0,0,0) center, that pushes the
-  // model (including its base/legs) down and out of frame. Aim at the
-  // model's center explicitly so the whole thing — base to top — stays
-  // inside the box regardless of camera height.
   camera.lookAt(0, 0, 0);
+
+  // Half-height and horizontal turning radius of the loaded model, used to
+  // fit the camera so the model fills the box at any aspect ratio (wide on
+  // desktop, near-square on phones) without clipping while it rotates.
+  let fit: { halfH: number; radiusXZ: number } | null = null;
+
+  const frameModel = () => {
+    if (!fit) return;
+    const vHalf = THREE.MathUtils.degToRad(camera.fov) / 2;
+    const hHalf = Math.atan(Math.tan(vHalf) * camera.aspect);
+    const distV = fit.halfH / Math.tan(vHalf);
+    const distH = fit.radiusXZ / Math.tan(hHalf);
+    // + part of the radius: the near corners sit closer to the camera and
+    // appear larger under perspective as the tank turns.
+    const dist = Math.max(distV, distH) + fit.radiusXZ * 0.6;
+    camera.position.set(0, dist * 0.155, dist);
+    camera.lookAt(0, 0, 0);
+  };
 
   const group = new THREE.Group();
   scene.add(group);
@@ -48,9 +59,14 @@ export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankSh
       box.getCenter(center);
       const targetHeight = 3.4;
       const scale = targetHeight / (size.y || 1);
-      model.position.sub(center);
+      model.position.sub(center).multiplyScalar(scale);
       model.scale.setScalar(scale);
       tankGroup.add(model);
+      fit = {
+        halfH: targetHeight / 2,
+        radiusXZ: (Math.hypot(size.x, size.z) / 2) * scale,
+      };
+      frameModel();
       tankGroup.visible = true;
     },
     undefined,
@@ -75,6 +91,7 @@ export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankSh
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    frameModel();
   };
   resize();
   const ro = new ResizeObserver(resize);
@@ -102,7 +119,8 @@ export function mount(canvas: HTMLCanvasElement, container: HTMLElement): TankSh
     lastX = e.clientX;
     lastY = e.clientY;
     dragRotY += dx * 0.01;
-    dragRotX += dy * 0.01;
+    // Clamped so a vertical drag can tilt the tank but never flip it over.
+    dragRotX = THREE.MathUtils.clamp(dragRotX + dy * 0.01, -0.45, 0.45);
   };
   const onPointerUp = (e: PointerEvent) => {
     isDragging = false;

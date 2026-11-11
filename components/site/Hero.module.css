@@ -215,12 +215,6 @@
   overflow: hidden;
 }
 
-@media (max-width: 900px) {
-  .tankBox {
-    height: 320px;
-  }
-}
-
 /* ---------- Team stats bar ---------- */
 
 .teamBar {
@@ -279,4 +273,105 @@
   text-transform: uppercase;
   color: rgba(0, 0, 0, .78);
   white-space: nowrap;
+}
+
+/* ---------- Phones / tablets (kept last so they override the base rules above) ---------- */
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 28px;
+    padding: 4vh 0 4vh;
+  }
+
+  .tankCol {
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .tankBox {
+    height: min(92vw, 420px);
+  }
+
+  .teamBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .teamList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 20px;
+  }
+
+  .teamItem {
+    gap: 8px;
+  }
+
+  .teamLabelSmall {
+    font-size: 12px;
+    letter-spacing: .12em;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 14px 0;
+  }
+
+  .logoPill {
+    padding: 6px;
+  }
+
+  .logoBadge {
+    height: 38px;
+    width: 92px;
+  }
+
+  .logo {
+    height: 28px;
+  }
+
+  .companyName {
+    display: none;
+  }
+
+  .nav {
+    gap: 6px;
+  }
+
+  .contactBtn {
+    font-size: 13px;
+    padding: 10px 13px;
+    white-space: nowrap;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: .16em;
+  }
+
+  .title {
+    font-size: clamp(44px, 14vw, 64px);
+  }
+
+  .subtitleRow {
+    font-size: 19px;
+  }
+
+  .tagRow {
+    font-size: 13px;
+    gap: 6px 12px;
+  }
+
+  .intro {
+    font-size: 16px;
+  }
+
+  .teamNum {
+    font-size: 32px;
+  }
 }
