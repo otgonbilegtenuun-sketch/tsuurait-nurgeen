@@ -1,6 +1,11 @@
 // Ported 1:1 from design_handoff_tsuurait/hero3d.js (CDN import -> npm 'three').
 // Behaviour must not change: see HANDOFF-PROMPT.md "hero3d.js API" + README.md section 4.
+// Addition: a real GLB model of the company's GRP water tank product, loaded
+// alongside the original diamond-lattice/dust scene (user-provided asset,
+// optimized from a 23.8MB OBJ down to a 142KB Draco-compressed GLB).
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 export type Hero3DHandle = {
   setScroll: (p: number) => void;
@@ -72,6 +77,35 @@ export function mount(
     new THREE.PointsMaterial({ color: 0x6f93be, size: 0.045, transparent: true, opacity: 0.4 })
   );
   scene.add(dust);
+
+  // GRP water tank model — the actual product, as the hero's centerpiece.
+  const tankGroup = new THREE.Group();
+  tankGroup.visible = false; // shown once loaded + measured, to avoid a flash at the wrong scale
+  group.add(tankGroup);
+
+  const dracoLoader = new DRACOLoader();
+  dracoLoader.setDecoderPath('/draco/');
+  const gltfLoader = new GLTFLoader();
+  gltfLoader.setDRACOLoader(dracoLoader);
+  gltfLoader.load(
+    '/models/tank.glb',
+    (gltf) => {
+      const model = gltf.scene;
+      const box = new THREE.Box3().setFromObject(model);
+      const size = new THREE.Vector3();
+      box.getSize(size);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+      const targetHeight = 4.2;
+      const scale = targetHeight / (size.y || 1);
+      model.position.sub(center);
+      model.scale.setScalar(scale);
+      tankGroup.add(model);
+      tankGroup.visible = true;
+    },
+    undefined,
+    (err) => console.warn('[hero3d] tank model failed to load', err)
+  );
 
   scene.add(new THREE.AmbientLight(0xffffff, 0.35));
   const l1 = new THREE.PointLight(0xa9c9ec, 60, 40);
@@ -147,6 +181,7 @@ export function mount(
       cancelAnimationFrame(raf);
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('resize', resize);
+      dracoLoader.dispose();
       renderer.dispose();
     },
   };
