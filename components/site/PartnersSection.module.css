@@ -64,7 +64,9 @@
   justify-items: center;
   gap: clamp(26px, 4vw, 44px);
   padding: clamp(28px, 4.5vw, 56px) clamp(20px, 4vw, 56px);
-  background: rgba(46, 134, 222, .06);
+  background-color: rgba(46, 134, 222, .06);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Crect x='17' y='17' width='10' height='10' fill='%232E86DE' fill-opacity='0.05' transform='rotate(45 22 22)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(46, 134, 222, .18);
