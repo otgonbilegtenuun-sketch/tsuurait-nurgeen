@@ -32,6 +32,11 @@ export const translations = {
     partnersHeading: 'Хамтрагч байгууллага',
     partnersNote: 'Цэвэр усны нөөцийн савны чиглэлээр Солонгосын DOORI компанитай хамтран ажилладаг.',
     partnersFoot: 'Утсаараа уншуулж нээнэ үү',
+    tankShapesHeading: 'Орон зайдаа тохируулж усны саваа төлөвлөөрэй',
+    tankShapeL: 'L хэлбэр',
+    tankShapeU: 'U хэлбэр',
+    tankShapeNarrow: 'Нарийн орон зай',
+    tankShapeLow: 'Намхан тааз',
 
     certsEyebrow: 'Чанарын баталгаа',
     certsHeading: 'Гэрчилгээ, стандарт',
@@ -96,6 +101,11 @@ export const translations = {
     partnersHeading: 'Partner Organization',
     partnersNote: 'We work with South Korea’s DOORI company in the field of clean water reserve tanks.',
     partnersFoot: 'Scan with your phone to open',
+    tankShapesHeading: 'Plan your water tank to fit your space',
+    tankShapeL: 'L-shape',
+    tankShapeU: 'U-shape',
+    tankShapeNarrow: 'Narrow space',
+    tankShapeLow: 'Low ceiling',
 
     certsEyebrow: 'Quality Assurance',
     certsHeading: 'Certificates & Standards',

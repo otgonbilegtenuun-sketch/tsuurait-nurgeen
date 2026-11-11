@@ -77,6 +77,34 @@ export default function PartnersSection() {
           </a>
         </div>
 
+        <div className={styles.shapesHeading}>{t('tankShapesHeading')}</div>
+        <div className={styles.shapes}>
+          <div className={styles.shapeCard}>
+            <div className={styles.shapeImageFrame}>
+              <img src="/img/tank-shapes/l-shape.png" alt={t('tankShapeL')} />
+            </div>
+            <div className={styles.shapeLabel}>{t('tankShapeL')}</div>
+          </div>
+          <div className={styles.shapeCard}>
+            <div className={styles.shapeImageFrame}>
+              <img src="/img/tank-shapes/u-shape.png" alt={t('tankShapeU')} />
+            </div>
+            <div className={styles.shapeLabel}>{t('tankShapeU')}</div>
+          </div>
+          <div className={styles.shapeCard}>
+            <div className={styles.shapeImageFrame}>
+              <img src="/img/tank-shapes/narrow-space.png" alt={t('tankShapeNarrow')} />
+            </div>
+            <div className={styles.shapeLabel}>{t('tankShapeNarrow')}</div>
+          </div>
+          <div className={styles.shapeCard}>
+            <div className={styles.shapeImageFrame}>
+              <img src="/img/tank-shapes/low-ceiling.png" alt={t('tankShapeLow')} />
+            </div>
+            <div className={styles.shapeLabel}>{t('tankShapeLow')}</div>
+          </div>
+        </div>
+
         <div className={styles.foot}>{t('partnersFoot')}</div>
       </div>
     </section>
