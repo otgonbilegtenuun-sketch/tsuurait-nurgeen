@@ -30,9 +30,6 @@ export default function SiteHeader({
         >
           {t('navServices')}
         </Link>
-        <div className={styles.toggleSlot}>
-          <LanguageToggle />
-        </div>
         <button
           type="button"
           className={`${styles.pill} ${styles.contactBtn}`}
@@ -43,6 +40,9 @@ export default function SiteHeader({
         >
           {t('contactNav')}
         </button>
+        <div className={styles.toggleSlot}>
+          <LanguageToggle />
+        </div>
       </nav>
     </header>
   );

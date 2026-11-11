@@ -20,7 +20,7 @@ export default function ProjectsTimeline({ projects }: { projects: Project[] }) 
         <div>
           <div className={styles.eyebrow}>{t('timelineEyebrow')}</div>
           <div className={styles.heading}>
-            {t('timelineHeadingPrefix')} <span className={styles.headingRange}>2010 — 2025</span>
+            {t('timelineHeadingPrefix')} <span className={styles.headingRange}>2010 — 2026</span>
           </div>
         </div>
         <div className={styles.controls}>
