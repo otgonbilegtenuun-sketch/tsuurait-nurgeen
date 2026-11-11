@@ -8,6 +8,10 @@ export const translations = {
   mn: {
     companyName: 'ЦУУРАЙТ НҮРГЭЭН ХХК',
     contactNav: 'Холбоо барих',
+    navServices: 'Үйл ажиллагааны чиглэл',
+    tankLabel: 'Цэвэр усны нөөцийн сав',
+    scrollPrev: 'Өмнөх',
+    scrollNext: 'Дараах',
     heroEyebrow: '2010 оноос хойш · Барилга угсралт',
     heroTitleLine1: 'ЦУУРАЙТ',
     heroTitleLine2: 'НҮРГЭЭН',
@@ -48,7 +52,6 @@ export const translations = {
     timelineEyebrow: 'Хийж гүйцэтгэсэн ажлууд',
     timelineHeadingPrefix: 'Бүтээн байгуулалт',
     timelineYearSuffix: 'он',
-    timelineScrollHint: 'Гүйлгэж үзэх ↓',
 
     worksHeading: 'Талбай дээрх ажил',
     worksSubheading: 'Сантехник · Узель · Дулааны шугам',
@@ -81,6 +84,10 @@ export const translations = {
   en: {
     companyName: 'TSUURAIT NURGEEN LLC',
     contactNav: 'Contact Us',
+    navServices: 'Services',
+    tankLabel: 'Clean water storage tank',
+    scrollPrev: 'Previous',
+    scrollNext: 'Next',
     heroEyebrow: 'Since 2010 · Construction & Installation',
     heroTitleLine1: 'TSUURAIT',
     heroTitleLine2: 'NURGEEN',
@@ -121,7 +128,6 @@ export const translations = {
     timelineEyebrow: 'Completed Projects',
     timelineHeadingPrefix: 'Projects Built',
     timelineYearSuffix: '',
-    timelineScrollHint: 'Scroll to view ↓',
 
     worksHeading: 'Work on Site',
     worksSubheading: 'Plumbing · Assembly · Heating Lines',

@@ -39,3 +39,15 @@ alter table public.messages enable row level security;
 --   published boolean default false,
 --   created_at timestamptz default now()
 -- );
+
+-- Certificates shown in the horizontal row on the home page. The admin panel's
+-- "Гэрчилгээ нэмэх" button will insert here once Supabase is connected.
+-- create table if not exists public.certificates (
+--   id uuid primary key default gen_random_uuid(),
+--   title text not null,
+--   issuer text,
+--   detail text,
+--   image_url text not null,
+--   "order" int,
+--   created_at timestamptz default now()
+-- );

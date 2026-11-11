@@ -3,13 +3,15 @@
 import { useState, type FormEvent } from 'react';
 import { projects } from '@/lib/data/projects';
 import { news } from '@/lib/data/news';
+import { certificates } from '@/lib/data/certificates';
 import styles from './page.module.css';
 
-type Tab = 'projects' | 'news' | 'messages';
+type Tab = 'projects' | 'news' | 'certificates' | 'messages';
 
 const TABS: { key: Tab; label: string }[] = [
   { key: 'projects', label: 'Бүтээн байгуулалт' },
   { key: 'news', label: 'Мэдээ' },
+  { key: 'certificates', label: 'Гэрчилгээ' },
   { key: 'messages', label: 'Санал хүсэлт' },
 ];
 
@@ -150,6 +152,50 @@ export default function AdminPage() {
                   <div className={styles.rowMain}>
                     <span className={styles.year}>{n.date}</span>
                     <span className={styles.rowText}>{n.title}</span>
+                  </div>
+                  <div className={styles.actions}>
+                    <button
+                      type="button"
+                      className={styles.actionButton}
+                      disabled
+                      title={COMING_SOON_TITLE}
+                    >
+                      Засах
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.actionButton}
+                      disabled
+                      title={COMING_SOON_TITLE}
+                    >
+                      Устгах
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {tab === 'certificates' && (
+          <>
+            <div className={styles.panelHeader}>
+              <span className={styles.panelTitle}>Гэрчилгээ</span>
+              <button
+                type="button"
+                className={styles.actionButton}
+                disabled
+                title={COMING_SOON_TITLE}
+              >
+                Гэрчилгээ нэмэх
+              </button>
+            </div>
+            <ul className={styles.list}>
+              {certificates.map((c, i) => (
+                <li key={`${c.title}-${i}`} className={styles.row}>
+                  <div className={styles.rowMain}>
+                    <span className={styles.year}>{c.issuer.split(' — ')[0]}</span>
+                    <span className={styles.rowText}>{c.title}</span>
                   </div>
                   <div className={styles.actions}>
                     <button

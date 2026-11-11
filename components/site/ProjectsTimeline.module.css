@@ -1,24 +1,14 @@
-/* Ported verbatim from the hi-fi prototype's sticky-scroll timeline section. */
+/* Horizontal, swipeable project timeline — replaces the old sticky vertical
+   scroll-jacking section. Page scroll is never hijacked. */
 
 .section {
   position: relative;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(46, 134, 222, 0) 0%, rgba(46, 134, 222, .05) 12%, rgba(46, 134, 222, .08) 100%);
-}
-
-.track {
-  position: relative;
-}
-
-.sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
+  padding: 10vh clamp(20px, 5vw, 72px) 8vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
   grid-template-columns: minmax(0, 1fr);
-  padding: 0 clamp(20px, 5vw, 72px);
+  gap: 28px;
+  background: linear-gradient(180deg, rgba(46, 134, 222, 0) 0%, rgba(46, 134, 222, .05) 12%, rgba(46, 134, 222, .08) 100%);
 }
 
 .headRow {
@@ -26,7 +16,6 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
-  padding: 26px 0 0;
 }
 
 .eyebrow {
@@ -47,6 +36,12 @@
   color: rgba(0, 0, 0, .78);
 }
 
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
 .counter {
   font-size: 15px;
   letter-spacing: .18em;
@@ -55,166 +50,101 @@
   white-space: nowrap;
 }
 
-.body {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: clamp(24px, 4vw, 64px);
-  align-items: center;
-  min-height: 0;
+/* Edge-to-edge row: cards bleed to the screen edges but start aligned with the
+   page padding. Snap keeps a card flush at the left after every swipe. */
+.track {
+  --pad: clamp(20px, 5vw, 72px);
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  margin: 0 calc(-1 * var(--pad));
+  padding: 6px var(--pad) 26px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad);
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
 }
 
-.textStack {
-  position: relative;
-  min-height: 320px;
+.track::-webkit-scrollbar {
+  display: none;
 }
 
-.textItem {
-  position: absolute;
-  inset: 0;
+.card {
+  flex: 0 0 min(400px, 82vw);
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  transition: opacity .7s cubic-bezier(.2, .7, .2, 1), transform .7s cubic-bezier(.2, .7, .2, 1);
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(46, 134, 222, .06);
+  border: 1px solid rgba(46, 134, 222, .18);
+  box-shadow: 0 30px 70px -45px rgba(15, 76, 129, .35);
 }
 
-.year {
-  font-size: clamp(56px, 6.4vw, 112px);
-  line-height: .95;
-  letter-spacing: -.03em;
-  color: #000000;
-  font-weight: 400;
-}
-
-.yearSuffix {
-  font-size: .35em;
-  color: #1F6FC4;
-  font-style: normal;
-  margin-left: .25em;
-}
-
-.divider {
-  width: 72px;
-  height: 2px;
-  background: #A9C9EC;
-  margin: 26px 0;
-}
-
-.text {
-  margin: 0;
-  max-width: 520px;
-  font-size: clamp(17px, 1.3vw, 22px);
-  line-height: 1.5;
-  font-weight: 400;
-  color: rgba(0, 0, 0, .78);
-}
-
-.imageStack {
+.imageFrame {
   position: relative;
   aspect-ratio: 4 / 3;
-  max-height: 62vh;
-  width: 100%;
-  justify-self: end;
-  border-radius: 26px;
   overflow: hidden;
-  background: rgba(46, 134, 222, .04);
-  border: 1px solid rgba(46, 134, 222, .18);
-  box-shadow: 0 50px 120px -50px rgba(15, 76, 129, .35);
+  flex-shrink: 0;
 }
 
-.image {
-  position: absolute;
-  inset: 0;
+.imageFrame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform 1.4s cubic-bezier(.2, .7, .2, 1);
+  display: block;
 }
 
 .imageFade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 76, 129, 0) 55%, rgba(15, 76, 129, .7) 100%);
+  background: linear-gradient(180deg, rgba(15, 76, 129, 0) 55%, rgba(15, 76, 129, .72) 100%);
   pointer-events: none;
 }
 
-.imageBadge {
+.yearBadge {
   position: absolute;
   left: 18px;
-  bottom: 16px;
-  right: 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .1);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, .16);
-  font-style: normal;
-  font-size: 14px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
+  bottom: 14px;
+  color: #fff;
+  font-size: clamp(30px, 3vw, 40px);
+  line-height: 1;
+  letter-spacing: -.02em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .35);
 }
 
-.imageBadgeYear {
-  color: rgba(255, 255, 255, .85);
-}
-
-.imageBadgeHint {
-  color: #A9C9EC;
-}
-
-.footRow {
-  padding: 0 0 22px;
+.text {
+  margin: 0;
+  padding: 20px 22px 24px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, .78);
 }
 
 .progressTrack {
-  position: relative;
   height: 2px;
   background: rgba(15, 76, 129, .12);
   border-radius: 2px;
-  margin-bottom: 12px;
+  overflow: hidden;
 }
 
 .progressFill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
+  height: 100%;
   background: linear-gradient(90deg, #2E86DE, #A9C9EC);
   border-radius: 2px;
-  transition: width .3s;
+  transition: width .2s;
 }
 
-.ticks {
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  font-style: normal;
-  font-size: 13px;
-  letter-spacing: .08em;
-}
-
-.tick {
-  transition: color .4s;
-  white-space: nowrap;
-}
-
-/* Phones: stack text above the image. Every year is pinned to the top of the
-   stack (not vertically centered) so the outgoing/incoming items line up
-   during the crossfade instead of ghosting at different heights. svh keeps
-   the sticky panel inside the visible area when the mobile browser bar shows. */
 @media (max-width: 760px) {
-  .sticky {
-    height: 100svh;
+  .section {
+    padding: 8vh 20px 6vh;
   }
 
   .headRow {
-    padding-top: 18px;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
   }
 
   .eyebrow {
@@ -222,64 +152,29 @@
   }
 
   .heading {
-    font-size: 28px;
+    font-size: 30px;
     line-height: 1.1;
+  }
+
+  .controls {
+    justify-content: space-between;
   }
 
   .counter {
     font-size: 13px;
-    padding-top: 2px;
   }
 
-  .body {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    align-content: center;
-    gap: 18px;
+  .track {
+    --pad: 20px;
+    gap: 14px;
   }
 
-  .textStack {
-    min-height: 220px;
-  }
-
-  .textItem {
-    justify-content: flex-start;
-    transition-duration: .4s;
-  }
-
-  .year {
-    font-size: 48px;
-  }
-
-  .divider {
-    margin: 14px 0;
+  .card {
+    border-radius: 20px;
   }
 
   .text {
     font-size: 16px;
-  }
-
-  .imageStack {
-    aspect-ratio: 16 / 10;
-    max-height: 30svh;
-    justify-self: stretch;
-    border-radius: 20px;
-  }
-
-  .imageBadge {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    padding: 8px 14px;
-    font-size: 11px;
-    letter-spacing: .12em;
-  }
-
-  .footRow {
-    padding-bottom: 16px;
-  }
-
-  .ticks {
-    display: none;
+    padding: 16px 18px 20px;
   }
 }

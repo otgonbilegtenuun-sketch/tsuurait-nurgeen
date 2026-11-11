@@ -1,0 +1,148 @@
+/* `rise` is redefined locally: Turbopack scopes animation-name per CSS-module file. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 0;
+  animation: rise .9s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.logoPill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 18px 8px 8px;
+  border-radius: 999px;
+  background: rgba(46, 134, 222, .06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(46, 134, 222, .18);
+  color: inherit;
+}
+
+.logoPill:hover {
+  color: inherit;
+}
+
+.logoBadge {
+  height: 44px;
+  width: 120px;
+  border-radius: 999px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.logo {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+.companyName {
+  font-size: 15px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: rgba(0, 0, 0, .78);
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  color: #000000;
+  background: rgba(46, 134, 222, .06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(46, 134, 222, .18);
+  white-space: nowrap;
+  transition: background .3s, color .3s, transform .3s;
+}
+
+.pill:hover {
+  background: #E51C24;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.pillActive {
+  background: #2E86DE;
+  border-color: #2E86DE;
+  color: #fff;
+}
+
+/* ---------- Phones: logo + language on row 1, the two pills on row 2 ---------- */
+
+@media (max-width: 760px) {
+  .header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 14px 0;
+  }
+
+  .nav {
+    display: contents;
+  }
+
+  .logoPill {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    padding: 6px;
+  }
+
+  .logoBadge {
+    height: 38px;
+    width: 104px;
+  }
+
+  .logo {
+    height: 28px;
+  }
+
+  .companyName {
+    display: none;
+  }
+
+  .toggleSlot {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .servicesLink {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .contactBtn {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .pill {
+    font-size: 14px;
+    padding: 11px 16px;
+  }
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 const title = "ЦУУРАЙТ НҮРГЭЭН ХХК — Барилгын инженерийн үйлчилгээ";
 const description =
@@ -39,7 +40,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="mn">
-      <body>{children}</body>
+      <body>
+        <div
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            background:
+              "radial-gradient(120% 80% at 10% 10%, rgba(46,134,222,0) 0%, rgba(46,134,222,.05) 70%, rgba(46,134,222,.1) 100%)",
+          }}
+        />
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

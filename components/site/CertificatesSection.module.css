@@ -23,13 +23,36 @@
   color: #000000;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+.headRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: 18px;
 }
 
+/* Edge-to-edge row that scrolls sideways one card at a time, so adding more
+   certificates later never makes the page taller. */
+.track {
+  --pad: clamp(20px, 5vw, 72px);
+  display: flex;
+  align-items: stretch;
+  gap: 18px;
+  margin: 0 calc(-1 * var(--pad));
+  padding: 6px var(--pad) 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--pad);
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
 .card {
+  flex: 0 0 min(300px, 78vw);
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   padding: 20px;

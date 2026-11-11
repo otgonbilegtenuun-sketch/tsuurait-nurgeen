@@ -1,7 +1,7 @@
 .section {
   position: relative;
   z-index: 1;
-  padding: 10vh clamp(20px, 5vw, 72px) 4vh;
+  padding: 6vh clamp(20px, 5vw, 72px) 6vh;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 34px;

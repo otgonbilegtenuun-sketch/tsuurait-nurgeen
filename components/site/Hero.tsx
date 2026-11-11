@@ -1,9 +1,8 @@
 'use client';
 
-import type { RefObject } from 'react';
 import dynamic from 'next/dynamic';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
-import LanguageToggle from './LanguageToggle';
+import SiteHeader from './SiteHeader';
 import styles from './Hero.module.css';
 
 const TankShowcase = dynamic(() => import('@/components/three/TankShowcase'), { ssr: false });
@@ -18,39 +17,17 @@ const TEAM_LABEL_EN: Record<string, string> = {
 };
 
 export default function Hero({
-  innerRef,
   team,
   onContactClick,
 }: {
-  innerRef: RefObject<HTMLElement | null>;
   team: TeamStat[];
   onContactClick: () => void;
 }) {
   const { t, lang } = useLanguage();
 
   return (
-    <section ref={innerRef} data-screen-label="Hero" className={styles.section}>
-      <header className={styles.header}>
-        <div className={styles.logoPill}>
-          <div className={styles.logoBadge}>
-            <img src="/img/logo.png" alt="Tsuurait Nurgeen" className={styles.logo} />
-          </div>
-          <div className={styles.companyName}>{t('companyName')}</div>
-        </div>
-        <nav className={styles.nav}>
-          <LanguageToggle />
-          <button
-            type="button"
-            className={styles.contactBtn}
-            onClick={(e) => {
-              e.preventDefault();
-              onContactClick();
-            }}
-          >
-            {t('contactNav')}
-          </button>
-        </nav>
-      </header>
+    <section data-screen-label="Hero" className={styles.section}>
+      <SiteHeader onContactClick={onContactClick} />
 
       <div className={styles.content}>
         <div className={styles.textCol}>
@@ -80,7 +57,20 @@ export default function Hero({
         <div className={styles.tankCol}>
           <div className={styles.tankBox}>
             <TankShowcase />
+            <div className={styles.tankLabel}>{t('tankLabel')}</div>
           </div>
+
+          {/* Technical drawing sits directly under the 3D tank. Replace
+              public/img/blueprint-diagram.jpg to change it. */}
+          <figure className={styles.blueprint}>
+            <div className={styles.blueprintImage}>
+              <img src="/img/blueprint-diagram.jpg" alt={t('engineeringHeading')} />
+            </div>
+            <figcaption className={styles.blueprintCaption}>
+              <span className={styles.blueprintEyebrow}>{t('engineeringEyebrow')}</span>
+              <span>{t('engineeringHeading')}</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
 
