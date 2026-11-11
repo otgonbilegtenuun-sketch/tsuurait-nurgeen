@@ -16,6 +16,7 @@ import AboutBanner from '@/components/site/AboutBanner';
 import Services from '@/components/site/Services';
 import PartnersSection from '@/components/site/PartnersSection';
 import CertificatesSection from '@/components/site/CertificatesSection';
+import EngineeringSection from '@/components/site/EngineeringSection';
 import ProjectsTimeline from '@/components/site/ProjectsTimeline';
 import WorksMarquee from '@/components/site/WorksMarquee';
 import NewsSection from '@/components/site/NewsSection';
@@ -112,6 +113,7 @@ export default function SiteExperience() {
       <Services services={services} />
       <PartnersSection />
       <CertificatesSection certificates={certificates} />
+      <EngineeringSection />
       <ProjectsTimeline
         trackRef={trackRef}
         trackHeight={trackHeight}

@@ -41,6 +41,10 @@ export const translations = {
     certsEyebrow: 'Чанарын баталгаа',
     certsHeading: 'Гэрчилгээ, стандарт',
 
+    engineeringEyebrow: 'Инженерийн шийдэл',
+    engineeringHeading: 'Барилгын усан хангамжийн систем',
+    engineeringCaption: 'Дээврийн болон давхар тус бүрийн GRP усны сав, төмөр хийц, усан хангамжийн шугамын бүрэн шийдэл.',
+
     timelineEyebrow: 'Хийж гүйцэтгэсэн ажлууд',
     timelineHeadingPrefix: 'Бүтээн байгуулалт',
     timelineYearSuffix: 'он',
@@ -109,6 +113,10 @@ export const translations = {
 
     certsEyebrow: 'Quality Assurance',
     certsHeading: 'Certificates & Standards',
+
+    engineeringEyebrow: 'Engineering Solution',
+    engineeringHeading: 'Building Water Supply System',
+    engineeringCaption: 'A complete solution covering rooftop and per-floor GRP tanks, steel structures, and water supply lines.',
 
     timelineEyebrow: 'Completed Projects',
     timelineHeadingPrefix: 'Projects Built',
